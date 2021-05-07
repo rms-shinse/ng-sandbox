@@ -1,7 +1,6 @@
-// FIXME: An error found 'TypeError: Cannot read property 'find' of undefined'.
-// import { setCompodocJson } from "@storybook/addon-docs/angular";
-// import docJson from "../documentation.json";
-// setCompodocJson(docJson);
+import { setCompodocJson } from "@storybook/addon-docs/angular";
+import docJson from "../documentation.json";
+setCompodocJson(docJson);
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

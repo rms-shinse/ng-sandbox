@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.lib.json",
+  // Need to include *.stories.ts. Those files are used by @storybook/addon-docs
+  "exclude": ["src/test.ts", "**/*.spec.ts"]
+}
