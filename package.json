@@ -5,7 +5,7 @@
     "ng": "ng",
     "serve": "wait-on file:./dist/ui/package.json -l && ng serve",
     "start": "run-p -l \"build:ui --watch\"  serve poststart",
-    "build": "yarn build:ui && ng build",
+    "build": "ng build",
     "build:ui": "rimraf dist/ui && yarn build ui",
     "lint": "ng lint",
     "test": "ng test",
