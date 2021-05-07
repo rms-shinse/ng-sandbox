@@ -11,9 +11,9 @@
     "test": "ng test",
     "postinstall": "husky install",
     "poststart": "wait-on http://localhost:4200 && opener http://localhost:4200",
-    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
-    "storybook": "yarn docs:json && start-storybook -p 6006",
-    "build-storybook": "yarn docs:json && build-storybook"
+    "storybook:docs": "compodoc -p ./projects/ui/tsconfig.lib.json -e json -d .",
+    "storybook:build": "yarn storybook:docs && build-storybook",
+    "storybook": "yarn storybook:docs && start-storybook -p 6006"
   },
   "private": true,
   "dependencies": {
@@ -45,6 +45,7 @@
     "@storybook/addon-essentials": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
     "@storybook/angular": "^6.2.9",
+    "@storybook/builder-webpack5": "^6.2.9",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
