@@ -1,12 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+export interface UiComponentProps {
+  text: string;
+}
 
 @Component({
   selector: 'ui-ui',
-  template: ` <p>ui works!</p> `,
+  template: ` <p>{{ props.text }}</p> `,
   styles: [],
 })
-export class UiComponent implements OnInit {
-  constructor() {}
+export class UiComponent {
+  @Input() props: UiComponentProps = {
+    text: 'ui works!',
+  };
 
-  ngOnInit(): void {}
+  constructor() {}
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UiComponentProps, UiService } from '@sandbox/ui';
 
 @Component({
   selector: 'debug-root',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'debug-app';
+  title: string;
+  uiProps: UiComponentProps;
+
+  constructor(private readonly ui: UiService) {
+    this.title = ui.hello();
+    this.uiProps = {
+      text: 'input from debug-app',
+    };
+  }
 }

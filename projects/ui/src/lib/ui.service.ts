@@ -5,4 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class UiService {
   constructor() {}
+
+  hello(): string {
+    return 'hello, from UiService';
+  }
 }
