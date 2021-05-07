@@ -1,18 +1,13 @@
 {
   "extends": "../../.eslintrc.json",
-  "ignorePatterns": [
-    "!**/*"
-  ],
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
         "project": [
           "projects/debug-app/tsconfig.app.json",
-          "projects/debug-app/tsconfig.spec.json",
-          "projects/debug-app/e2e/tsconfig.json"
+          "projects/debug-app/tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },
@@ -36,9 +31,7 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
+      "files": ["*.html"],
       "rules": {}
     }
   ]
