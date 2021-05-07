@@ -37,8 +37,7 @@
           },
           "configurations": {
             "production": {
-              "budgets": [
-                {
+              "budgets": [{
                   "type": "initial",
                   "maximumWarning": "500kb",
                   "maximumError": "1mb"
@@ -49,12 +48,10 @@
                   "maximumError": "4kb"
                 }
               ],
-              "fileReplacements": [
-                {
-                  "replace": "projects/debug-app/src/environments/environment.ts",
-                  "with": "projects/debug-app/src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "projects/debug-app/src/environments/environment.ts",
+                "with": "projects/debug-app/src/environments/environment.prod.ts"
+              }],
               "outputHashing": "all"
             },
             "development": {
@@ -117,6 +114,11 @@
     },
     "ui": {
       "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "projects/ui",
       "sourceRoot": "projects/ui/src",
       "prefix": "ui",
