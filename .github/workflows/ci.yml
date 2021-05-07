@@ -1,9 +1,8 @@
 name: Node CI
-
 on: [push]
 
 jobs:
-  build:
+  setup:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -26,8 +25,55 @@ jobs:
         if: steps.cache_node_modules_id.outputs.cache-hit != 'true'
         run: yarn --check-files --frozen-lockfile --non-interactive --ignore-optional
 
+  test:
+    needs: setup
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Restore node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ matrix.os }}-node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '**/yarn.lock')) }}
+
       - name: Test
         run: yarn test
+
+  # lint:
+
+  build:
+    # needs: [lint, test]
+    needs: [test]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Restore node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ matrix.os }}-node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '**/yarn.lock')) }}
 
       - name: Build
         run: yarn build
