@@ -25,31 +25,6 @@ jobs:
         if: steps.cache_node_modules_id.outputs.cache-hit != 'true'
         run: yarn --check-files --frozen-lockfile --non-interactive --ignore-optional
 
-  test:
-    needs: setup
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [14.x]
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Restore node_modules
-        id: node_modules_cache_id
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ matrix.os }}-node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '**/yarn.lock')) }}
-
-      - name: Test
-        run: yarn test
-
   lint:
     needs: setup
     runs-on: ${{ matrix.os }}
@@ -75,8 +50,8 @@ jobs:
       - name: Lint
         run: yarn lint
 
-  build:
-    needs: [lint, test]
+  build-libs:
+    needs: setup
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -96,6 +71,72 @@ jobs:
         with:
           path: node_modules
           key: ${{ matrix.os }}-node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '**/yarn.lock')) }}
+
+      - name: Build
+        run: yarn build:ui
+
+      - name: save dist/ui
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-ui
+          path: dist/ui
+
+  test:
+    needs: [lint, build-libs]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: load dist/ui
+        uses: actions/download-artifact@v2
+        with:
+          name: dist-ui
+
+      - name: Restore node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ matrix.os }}-node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '**/yarn.lock')) }}
+
+      - name: Test
+        run: yarn test
+
+  build-app:
+    needs: [lint, build-libs]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Restore node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ matrix.os }}-node-v${{ matrix.node-version }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '**/yarn.lock')) }}
+
+      - name: load dist/ui
+        uses: actions/download-artifact@v2
+        with:
+          name: dist-ui
 
       - name: Build
         run: yarn build
