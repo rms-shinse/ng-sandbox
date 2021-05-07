@@ -12,7 +12,7 @@
     "postinstall": "husky install",
     "poststart": "wait-on http://localhost:4200 && opener http://localhost:4200",
     "storybook:docs": "compodoc -p ./projects/ui/tsconfig.lib.storybook.json -e json -d .",
-    "storybook:build": "yarn storybook:docs && build-storybook",
+    "storybook:build": "yarn storybook:docs && build-storybook -o dist/storybook",
     "storybook": "yarn storybook:docs && start-storybook -p 6006"
   },
   "private": true,
