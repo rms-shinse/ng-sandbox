@@ -174,8 +174,13 @@ jobs:
       - name: Build storybook
         run: yarn storybook:build
 
+      - name: make artifact name
+        id: storybook_artifact_name
+        shell: bash
+        run: echo "MY_BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+
       - name: upload Storybook
         uses: actions/upload-artifact@v2
         with:
-          name: storybook
+          name: storybook-${{ env.MY_BRANCH_NAME }}
           path: dist/storybook
