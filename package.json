@@ -10,7 +10,10 @@
     "lint": "ng lint",
     "test": "ng test",
     "postinstall": "husky install",
-    "poststart": "wait-on http://localhost:4200 && opener http://localhost:4200"
+    "poststart": "wait-on http://localhost:4200 && opener http://localhost:4200",
+    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
+    "storybook": "yarn docs:json && start-storybook -p 6006",
+    "build-storybook": "yarn docs:json && build-storybook"
   },
   "private": true,
   "dependencies": {
@@ -35,10 +38,17 @@
     "@angular-eslint/template-parser": "4.2.0",
     "@angular/cli": "~12.0.0-rc.2",
     "@angular/compiler-cli": "~12.0.0-rc.2",
+    "@babel/core": "^7.14.0",
+    "@compodoc/compodoc": "^1.1.11",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/angular": "^6.2.9",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
+    "babel-loader": "^8.2.2",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
@@ -54,6 +64,7 @@
     "opener": "^1.5.2",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
+    "storybook": "^6.2.9",
     "typescript": "~4.2.3",
     "wait-on": "^5.3.0"
   },
