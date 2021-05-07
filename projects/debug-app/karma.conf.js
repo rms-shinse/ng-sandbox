@@ -2,7 +2,7 @@
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
 module.exports = function (config) {
-  config.set({
+  const defaults = {
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
@@ -40,5 +40,23 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     singleRun: false,
     restartOnFileChange: true
-  });
+  }
+
+  // Use headless mode on Github Actions, or it will not end forever.
+  if (process.env.GITHUB_ACTIONS) {
+    Object.assign(defaults, {
+      autoWatch: false,
+      browsers: ['ChromeHeadlessNoSandbox'],
+      singleRun: true,
+      customLaunchers: {
+        ChromeHeadlessNoSandbox: {
+          base: 'ChromeHeadless',
+          flags: ['--no-sandbox']
+        }
+      },
+      browserNoActivityTimeout: 60000
+    });
+  }
+
+  config.set(defaults);
 };
