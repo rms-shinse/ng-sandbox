@@ -24,7 +24,7 @@ jobs:
 
       - name: Install Dependencies
         if: steps.cache_node_modules_id.outputs.cache-hit != 'true'
-        run: yarn --check-files --frozen-lockfile --non-interactive
+        run: yarn --check-files --frozen-lockfile --non-interactive --ignore-optional
 
       - name: Test
         run: yarn test
