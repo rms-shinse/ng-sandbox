@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "test": "ng test",
     "commit": "cz",
-    "postinstall": "husky install",
+    "postinstall": "husky install && ngcc",
     "poststart": "wait-on http://localhost:4200 && opener http://localhost:4200",
     "storybook:docs": "compodoc -p ./projects/ui/tsconfig.lib.storybook.json -e json -d .",
     "storybook:build": "yarn storybook:docs && build-storybook -o dist/storybook",
@@ -75,5 +75,10 @@
   },
   "engines": {
     "node": "14.x"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
