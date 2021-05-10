@@ -8,6 +8,5 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 @NgModule({
   declarations: [HeaderComponent, SideNavComponent, FooterComponent],
   imports: [CommonModule],
-  exports: [HeaderComponent, SideNavComponent, FooterComponent],
 })
 export class LayoutsModule {}
