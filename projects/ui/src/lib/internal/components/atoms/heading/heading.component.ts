@@ -1,22 +1,19 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'ui-header',
-  templateUrl: './header.component.html',
+  selector: 'ui-heading',
+  templateUrl: './heading.component.html',
   // FIXME: When use scss, ng build frozen.
   // https://github.com/angular/angular-cli/issues/20726
-  // styleUrls: ['./header.component.scss'],
+  // styleUrls: ['./heading.component.scss'],
   styles: [
     `
       :host {
-        display: block;
-        min-height: 5em;
-        background-color: #eee;
+        font-size: 24px;
+        font-weight: 600;
       }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {
-  constructor() {}
-}
+export class HeadingComponent {}

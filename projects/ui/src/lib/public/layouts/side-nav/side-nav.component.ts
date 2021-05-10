@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'ui-side-nav',
@@ -6,7 +6,16 @@ import { Component } from '@angular/core';
   // FIXME: When use scss, ng build frozen.
   // https://github.com/angular/angular-cli/issues/20726
   // styleUrls: ['./side-nav.component.scss'],
-  styles: [``],
+  styles: [
+    `
+      :host {
+        display: block;
+        background-color: #eee;
+        position: fixed;
+      }
+    `,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideNavComponent {
   constructor() {}
