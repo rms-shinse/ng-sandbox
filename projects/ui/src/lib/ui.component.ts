@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 export interface UiComponentProps {
   text: string;
@@ -7,7 +7,11 @@ export interface UiComponentProps {
 @Component({
   selector: 'ui-ui',
   template: ` <p>{{ props.text }}</p> `,
+  // FIXME: When use scss, ng build frozen.
+  // https://github.com/angular/angular-cli/issues/20726
+  // styleUrls: ['./ui.component.scss'],
   styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UiComponent {
   @Input() props: UiComponentProps = {
