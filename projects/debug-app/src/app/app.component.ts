@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UiComponentProps, UiService } from '@sandbox/ui';
+import * as Sentry from '@sentry/angular';
 
 @Component({
   selector: 'debug-root',
@@ -15,5 +16,13 @@ export class AppComponent {
     this.uiProps = {
       text: 'input from debug-app',
     };
+  }
+
+  handleErrorButton(): void {
+    try {
+      throw new Error('Hello, world!');
+    } catch (err) {
+      Sentry.captureException(err);
+    }
   }
 }
